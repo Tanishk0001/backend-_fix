@@ -1,6 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import adminAuth from "../middleware/adminAuth.js";
 
 dotenv.config();
 const router = express.Router();
@@ -21,6 +22,11 @@ router.post("/login", (req, res) => {
   } else {
     res.status(401).json({ success: false, message: "Invalid credentials" });
   }
+});
+
+// Admin verify
+router.get("/verify", adminAuth, (req, res) => {
+  res.status(200).json({ success: true });
 });
 
 export default router;
